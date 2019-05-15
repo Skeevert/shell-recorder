@@ -1,0 +1,19 @@
+#!/bin/bash
+REC_PATH=$(pwd)
+rm -f $REC_PATH/macro
+echo "#!/bin/bash" >> $REC_PATH/macro
+COUNT=0
+while true
+do
+	read COMMAND
+	if [ "$COMMAND" == "end" ]
+		then break
+	fi	
+	echo $COMMAND >> $REC_PATH/macro
+	eval "$COMMAND"
+	COUNT=$((COUNT + 1))
+done
+if [ $COUNT == 0 ]
+	then rm -f $REC_PATH/macro
+	else chmod +x $REC_PATH/macro
+fi
