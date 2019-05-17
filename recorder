@@ -1,22 +1,19 @@
-#!/bin/bash
 REC_PATH=$(pwd)
-if ["$1" == "-n" ]
+if [ "$1" == "-n" ]
 	then MACRONAME="$2"
 	else MACRONAME="macro"
 fi
 echo "#!/bin/bash" >> $REC_PATH/$MACRONAME
-COUNT=0
 while true
 do
 	read -p "$(pwd)> " COMMAND
 	if [ "$COMMAND" == "end" ]
 		then break
-	fi	
+	fi
 	echo $COMMAND >> $REC_PATH/$MACRONAME
 	eval "$COMMAND"
-	COUNT=$((COUNT + 1))
 done
-if [ $COUNT == 0 ]
+if [ "$(cat $REC_PATH/$MACRONAME)" == "#!/bin/bash" ]
 	then rm -f $REC_PATH/$MACRONAME
 	else chmod +x $REC_PATH/$MACRONAME
 fi
